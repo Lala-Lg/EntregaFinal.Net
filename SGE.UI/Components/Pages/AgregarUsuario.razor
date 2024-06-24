@@ -46,7 +46,7 @@
         // Generar hash y sal para la contraseña ingresada
         (string hash, string sal) = HashService.CreateHash(_password);
         _usuario.Id = _proximoID;
-        _usuario.HashContraseña = hash;
+        _usuario.Contraseña = hash;
         _usuario.SalContraseña = sal;
         CasoDeUsoAgregarUsuario.Ejecutar(_usuario);
         _usuario = new Usuario();

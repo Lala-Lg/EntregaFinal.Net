@@ -10,7 +10,7 @@ public class Usuario
     public string CorreoElectronico { get; set;}="";
 
     // Nuevos campos para almacenar el hash y la sal de la contraseña
-    public string HashContraseña { get; set; } = "";
+    public string Contraseña { get; set; } = "";
     /*Sal se refiere a una cadena de datos aleatoria que se añade a la contraseña antes de calcular su hash
     La sal se genera de manera aleatoria y se combina con la contraseña antes de calcular su hash*/
     public string SalContraseña { get; set; } = "";

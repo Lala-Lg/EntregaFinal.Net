@@ -7,28 +7,40 @@
 @inject CasoDeUsoObtenerUsuario CasoDeUsoObtenerUsuario
 @inject CasoDeUsoObtenerListaUsuarios CasoDeUsoObtenerListaUsuarios
 @inject IHashService HashService
+@inject IJSRuntime JSRuntime
+<div class="contenedor">
+    <h2>Iniciar Sesión</h2>
 
-<h3>Iniciar Sesión</h3>
+    <form>
+        <div class="elemento">
+            <label for="email">Email:</label>
+            <input id="email" placeholder="Email" @bind="_correoElectronico" class="form-control" required type="email">
+        </div>
+        <div class="elemento">
+            <label for="password">Contraseña:</label>
+            <input id="password" placeholder="Contraseña" @bind="_password" type="password" class="form-control">
+        </div>
+    </form>
 
-<form>
-    <p>Email: <input placeholder="Email" @bind="_correoElectronico" class="form-control" required type="email"></p>
-    <p>Contraseña: <input placeholder="Contraseña" @bind="_password" type="password" class="form-control"></p>
-</form>
-
-<div class="container">
-    <button class="btn btn-primary" @onclick="MostrarConfirmacion">Iniciar Sesión</button>
-    <button @onclick="VolverHome" class="btn btn-primary">Home</button>
+    <div class="elemento">
+        <button class="boton" @onclick="/Iniciar">Iniciar Sesión</button>
+        <button @onclick="VolverHome" class="boton">Home</button>
+        
+    </div>
+    <script>
+   
+</script>
 </div>
 
 @code {
     private string _correoElectronico = string.Empty;
     private string _password = string.Empty;
     private List<Usuario> _usuarios = new List<Usuario>();
-    private DialogoConfirmacion dialogo = null!; 
-    private void MostrarConfirmacion()
-    {
-        dialogo?.Mostrar("¿Está seguro que desea iniciar?");
-    }   
+
+    
+
+
+    DialogoConfirmacion dialogo = null!;
 
     private void Iniciar()
     {

@@ -5,6 +5,7 @@
 @inject NavigationManager Navegador
 @inject CasoDeUsoAgregarUsuario CasoDeUsoAgregarUsuario
 @inject IHashService HashService
+@inject IUsuarioRepositorio IUsuarioRepositorio 
 
 <form>
     <p>Nombre: <input placeholder="Nombre" @bind="_usuario.Nombre" class="form-control" required type="text"></p>
@@ -23,14 +24,20 @@
     private string _password = string.Empty;
     private int _proximoID = 1; // Variable para almacenar el próximo ID
 
+    private List<Usuario> _lista = new List<Usuario>();
+   
+
     protected override void OnInitialized()
     {
+        // Crear una instancia de CasoDeUsoObtenerListaUsuarios
+        var casoDeUso = new CasoDeUsoObtenerListaUsuarios(IUsuarioRepositorio );
+
         // Obtener la lista de usuarios para determinar el próximo ID
-        var usuarios = CasoDeUsoObtenerListaUsuarios.Ejecutar();
-        if (usuarios.Count > 0)
+        _lista = casoDeUso.Ejecutar();
+        if (_lista.Count > 0)
         {
             // Obtener el último ID y sumarle 1 para el próximo usuario
-            _proximoID = usuarios.Max(u => u.Id) + 1;
+            _proximoID = _lista.Max(u => u.Id) + 1;
         }
     }
 

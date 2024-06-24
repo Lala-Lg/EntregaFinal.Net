@@ -29,7 +29,7 @@
     <UpToDateCheckInput Remove="Components\Pages\AgregarUsuario.cshtml" />
     <UpToDateCheckInput Remove="Components\Pages\ListarExpedientes.cshtml" />
     <UpToDateCheckInput Remove="Components\Pages\ListadoUsuarios.cshtml" />    
-    <UpToDateCheckInput Remove="Components\Pages\AgregarTramite.cshtml" />    
+    <UpToDateCheckInput Remove="Components\Pages\AgregarTramite.cshtml" />   
   </ItemGroup>
 
   <ItemGroup>

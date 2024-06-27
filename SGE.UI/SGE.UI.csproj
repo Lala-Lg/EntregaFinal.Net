@@ -1,6 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
+    <Content Remove="Components\ListarTramites.razor" />
+    <Content Remove="Components\Pages\ListarTramites.cshtml" />
+    <Content Remove="Components\Pages\RegistrarUsuario.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SGE.Aplicacion\SGE.Aplicacion.csproj" />
     <ProjectReference Include="..\SGE.Repositorios\SGE.Repositorios.csproj" />
   </ItemGroup>
@@ -23,6 +29,30 @@
 
   <ItemGroup>
     <Folder Include="Components\Pages\Usuario\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Components\Pages\ListarTramites.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Components\ListarTramites.razor" />
+    <_ContentIncludedByDefault Remove="Components\Pages\ListarTramites.cshtml" />
+    <_ContentIncludedByDefault Remove="Components\Pages\RegistrarUsuario.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Components\ListarTramites.razor" />
+    <None Include="Components\Pages\ListarTramites.cshtml" />
+    <None Include="Components\Pages\RegistrarUsuario.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Components\ListarTramites.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Components\Pages\RegistrarUsuario.cshtml" />
   </ItemGroup>
 
 </Project>

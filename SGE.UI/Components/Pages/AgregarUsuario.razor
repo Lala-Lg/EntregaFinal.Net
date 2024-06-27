@@ -2,10 +2,10 @@
 @rendermode InteractiveServer
 @using Microsoft.AspNetCore.Components.Web
 @using SGE.Aplicacion.Servicios
-@inject NavigationManager Navegador
+@inject NavigationManager NavigationManager
 @inject CasoDeUsoAgregarUsuario CasoDeUsoAgregarUsuario
 @inject IHashService HashService
-@inject IUsuarioRepositorio IUsuarioRepositorio 
+@inject IUsuarioRepositorio IUsuarioRepositorio
 
 <form>
     <p>Nombre: <input placeholder="Nombre" @bind="_usuario.Nombre" class="form-control" required type="text"></p>
@@ -13,6 +13,13 @@
     <p>Email: <input placeholder="Email" @bind="_usuario.CorreoElectronico" class="form-control" required type="email"></p>
     <p>Contraseña: <input placeholder="Contraseña" @bind="_password" type="password" class="form-control"></p>
 </form>
+
+@if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <div class="alert alert-danger" role="alert">
+        @ErrorMessage
+    </div>
+}
 
 <div class="container">
     <button class="btn btn-primary" @onclick="RegistrarUsuario">Aceptar</button>
@@ -23,38 +30,50 @@
     private Usuario _usuario = new Usuario();
     private string _password = string.Empty;
     private int _proximoID = 1; // Variable para almacenar el próximo ID
-
-    private List<Usuario> _lista = new List<Usuario>();
-   
+    private string ErrorMessage { get; set; }
 
     protected override void OnInitialized()
     {
         // Crear una instancia de CasoDeUsoObtenerListaUsuarios
-        var casoDeUso = new CasoDeUsoObtenerListaUsuarios(IUsuarioRepositorio );
+        var casoDeUso = new CasoDeUsoObtenerListaUsuarios(IUsuarioRepositorio);
 
         // Obtener la lista de usuarios para determinar el próximo ID
-        _lista = casoDeUso.Ejecutar();
-        if (_lista.Count > 0)
+        var lista = casoDeUso.Ejecutar();
+        if (lista.Count > 0)
         {
             // Obtener el último ID y sumarle 1 para el próximo usuario
-            _proximoID = _lista.Max(u => u.Id) + 1;
+            _proximoID = lista.Max(u => u.Id) + 1;
         }
     }
 
     private void RegistrarUsuario()
+    {
+        try
     {
         // Generar hash y sal para la contraseña ingresada
         (string hash, string sal) = HashService.CreateHash(_password);
         _usuario.Id = _proximoID;
         _usuario.Contraseña = hash;
         _usuario.SalContraseña = sal;
+        
+        // Ejecutar el caso de uso para agregar el usuario
         CasoDeUsoAgregarUsuario.Ejecutar(_usuario);
+        
+        // Limpiar variables después de registrar correctamente
         _usuario = new Usuario();
+        _password = string.Empty; // Limpiar contraseña también si es necesario
+        
+        // Mensaje de éxito
+        ErrorMessage = "Usuario registrado con éxito";
+    }
+    catch (Exception ex)
+    {
+        ErrorMessage = $"Error al registrar usuario: {ex.Message}";
+        Console.WriteLine($"Exception: {ex}");
+    }
     }
 
-    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
-
-    void VolverHome()
+    private void VolverHome()
     {
         NavigationManager.NavigateTo("/"); // Vuelve al Home
     }

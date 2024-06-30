@@ -53,8 +53,7 @@ else
 <div class="container">
     <button @onclick="VolverHome" class="btn btn-primary">Home</button>
 </div>
-
-<DialogoConfirmacion @ref=dialogo/>
+<DialogoConfirmacion @ref="dialogo" OnConfirmado="HandleConfirmarEliminacion" />
 
 @code {
     List<Usuario> _usuarios = new List<Usuario>();
@@ -64,30 +63,41 @@ else
         _usuarios = CasoDeUsoListarUsuarios.Ejecutar();
     }
 
-    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
-    void VolverHome()
-    {
-        NavigationManager.NavigateTo("/"); // Vuelve al Home
-    }
-    DialogoConfirmacion dialogo = null!;
-    Usuario? _usuarioEliminar = null;
+    private NavigationManager NavigationManager { get; set; } = null!;
+    private DialogoConfirmacion dialogo; // Declaración de la referencia dialogo
+
+    private Usuario? _usuarioEliminar = null;
+
     private void ConfirmarEliminacion(Usuario usuario)
     {
         _usuarioEliminar = usuario;
-        dialogo.Mensaje = $"¿Desea eliminar el usuario {usuario.Id}?";
-        dialogo.Mostrar(dialogo.Mensaje);
+        dialogo.Mostrar($"¿Desea eliminar el usuario {usuario.Id}?");
     }
-    private void Eliminar()
+ 
+    private async Task HandleConfirmarEliminacion(bool confirmado)
     {
-        if (_usuarioEliminar != null)
+        if (confirmado && _usuarioEliminar != null)
         {
-            CasoDeUsoEliminarUsuario.Ejecutar(_usuarioEliminar);
-            _usuarios = CasoDeUsoListarUsuarios.Ejecutar(); //se actualiza la lista
+            await EliminarUsuarioConfirmado(confirmado);
         }
     }
-    void ModificarUsuario(Usuario usuario)
+    private async Task EliminarUsuarioConfirmado(bool confirmado)
     {
-        Navegador.NavigateTo($"usuario/editar/{usuario.Id}");
+        if (confirmado && _usuarioEliminar != null)
+        {
+            CasoDeUsoEliminarUsuario.Ejecutar(_usuarioEliminar);
+            _usuarios = CasoDeUsoListarUsuarios.Ejecutar(); // Actualiza la lista
+            _usuarioEliminar = null; // Limpiar el usuario seleccionado
+        }
     }
 
+    private void ModificarUsuario(Usuario usuario)
+    {
+        NavigationManager.NavigateTo($"usuario/editar/{usuario.Id}");
+    }
+
+    private void VolverHome()
+    {
+        NavigationManager.NavigateTo("/"); // Vuelve al Home
+    }
 }

@@ -3,8 +3,8 @@
 @using Microsoft.AspNetCore.Components.Web
 @using SGE.Aplicacion.Servicios
 @inject CasoDeUsoListarUsuarios CasoDeUsoListarUsuarios
+@inject NavigationManager NavigationManager
 @inject CasoDeUsoEliminarUsuario CasoDeUsoEliminarUsuario
-@inject NavigationManager Navegador
 
 <PageTitle>ListarUsuarios</PageTitle>
 
@@ -25,6 +25,7 @@ else
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Correo electrónico</th>
+                <th>Permisos</th>
             </tr>
         </thead>
         <tbody>
@@ -35,6 +36,7 @@ else
                     <td>@usuario.Nombre</td>
                     <td>@usuario.Apellido</td>
                     <td>@usuario.CorreoElectronico</td>
+                    <td>@usuario.ListaPermisos</td>
                 </tr>
                 <td>
                     <button class="btn btn-primary" @onclick="()=>ModificarUsuario(usuario)">
@@ -63,7 +65,6 @@ else
         _usuarios = CasoDeUsoListarUsuarios.Ejecutar();
     }
 
-    private NavigationManager NavigationManager { get; set; } = null!;
     private DialogoConfirmacion dialogo; // Declaración de la referencia dialogo
 
     private Usuario? _usuarioEliminar = null;

@@ -53,6 +53,7 @@ else
     </table>
 }
 <div class="container">
+     <button @onclick="IrAagregarUsuario" class="btn btn-primary">Agregar Usuario</button>
     <button @onclick="VolverHome" class="btn btn-primary">Home</button>
 </div>
 <DialogoConfirmacion @ref="dialogo" OnConfirmado="HandleConfirmarEliminacion" />
@@ -97,6 +98,10 @@ else
         NavigationManager.NavigateTo($"usuario/editar/{usuario.Id}");
     }
 
+     private void IrAagregarUsuario()
+    {
+        NavigationManager.NavigateTo("/AgregarExpediente");
+    }
     private void VolverHome()
     {
         NavigationManager.NavigateTo("/"); // Vuelve al Home

@@ -15,6 +15,4 @@ public class CasoDeUsoExpedienteConsultaPorId(IExpedienteRepositorio _expediente
             throw new RepositorioException("El expediente con el id ingresado no existe ");
           }
     }
-
-
 }

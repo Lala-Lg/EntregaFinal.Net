@@ -23,12 +23,10 @@
         </div>
     </form>
 
-    <div class="elemento">
-        <button class="boton" @onclick="Iniciar">Iniciar Sesión</button>
-    </div>
+    <button class="btn btn-primary" @onclick="Iniciar">Iniciar Sesión</button>
+    <button @onclick="NavigateToRegistro" class="btn btn-primary">Registrarse</button>
 
 </div>
-    <button @onclick="NavigateToRegistro" class="btn btn-primary">Registrarse</button>
 
 @code {
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;

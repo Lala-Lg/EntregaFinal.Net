@@ -1,0 +1,68 @@
+@page "/listarTramites/{idExpediente:int}"
+@rendermode InteractiveServer
+@using Microsoft.AspNetCore.Components.Web
+@using SGE.Aplicacion.Servicios
+@inject NavigationManager NavigationManager
+
+<h1>Listar Trámites</h1>
+
+<p>A continuación se visualiza el listado de los Tramites.</p>
+
+@if (_tramites == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>ExpedienteId</th>
+                <th>Etiqueta</th>
+                <th>Contenido</th>
+                <th>FechaCreacion</th>
+                <th>UltimaModificacion</th>
+                <th>IdUsuarioUltimaModificacion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tramite in _tramites)
+            {
+                <tr>
+                    <td>@tramite.Id</td>
+                    <td>@tramite.ExpedienteId</td>
+                    <td>@tramite.Etiqueta</td>
+                    <td>@tramite.Contenido</td>
+                    <td>@tramite.FechaCreacion</td>
+                    <td>@tramite.UltimaModificacion</td>
+                    <td>@tramite.IdUsuarioUltimaModificacion</td>
+                </tr>
+                <td>
+                    <button class="btn btn-danger" @onclick="()=>EliminarTramite(tramite)">
+                        <span class="oi oi-trash">Eliminar Tramite</span>
+                    </button>
+                </td>
+            }
+        </tbody>
+    </table>
+}
+<div class="container">
+    <button @onclick="VolverHome" class="btn btn-primary">Home</button>
+</div>
+@code
+{
+    List<Tramite> _tramites = new List<Tramite>();
+    /*protected override void OnInitialized()
+    {
+        _tramites = _tramites.ListarPorIdExpediente();
+    }*/
+
+    private void EliminarTramite(Tramite tramite){
+
+    }
+    private void VolverHome()
+    {
+        NavigationManager.NavigateTo("/"); // Vuelve al Home
+    }
+}

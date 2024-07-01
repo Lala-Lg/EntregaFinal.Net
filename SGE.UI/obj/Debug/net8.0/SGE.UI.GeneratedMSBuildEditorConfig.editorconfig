@@ -9,67 +9,71 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = SGE.UI
 build_property.RootNamespace = SGE.UI
-build_property.ProjectDir = D:\Universidad\Segundo año\.Net\EntregaFinal\EntregaFinal.Net\SGE.UI\
+build_property.ProjectDir = D:\Universidad\Segundo año\.Net\EntregaFinal.Net\sge.ui\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\Universidad\Segundo año\.Net\EntregaFinal\EntregaFinal.Net\SGE.UI
+build_property.MSBuildProjectDirectory = D:\Universidad\Segundo año\.Net\EntregaFinal.Net\sge.ui
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/Universidad/Segundo año/.Net/EntregaFinal/EntregaFinal.Net/sge.ui/Components/App.razor]
+[D:/Universidad/Segundo año/.Net/EntregaFinal.Net/sge.ui/Components/App.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Universidad/Segundo año/.Net/EntregaFinal/EntregaFinal.Net/sge.ui/Components/Pages/AgregarExpediente.razor]
+[D:/Universidad/Segundo año/.Net/EntregaFinal.Net/sge.ui/Components/Pages/AgregarExpediente.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZ3JlZ2FyRXhwZWRpZW50ZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Universidad/Segundo año/.Net/EntregaFinal/EntregaFinal.Net/sge.ui/Components/Pages/AgregarUsuario.razor]
+[D:/Universidad/Segundo año/.Net/EntregaFinal.Net/sge.ui/Components/Pages/AgregarUsuario.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZ3JlZ2FyVXN1YXJpby5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Universidad/Segundo año/.Net/EntregaFinal/EntregaFinal.Net/sge.ui/Components/Pages/Counter.razor]
+[D:/Universidad/Segundo año/.Net/EntregaFinal.Net/sge.ui/Components/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb3VudGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Universidad/Segundo año/.Net/EntregaFinal/EntregaFinal.Net/sge.ui/Components/Pages/Error.razor]
+[D:/Universidad/Segundo año/.Net/EntregaFinal.Net/sge.ui/Components/Pages/Error.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Universidad/Segundo año/.Net/EntregaFinal/EntregaFinal.Net/sge.ui/Components/Pages/Home.razor]
+[D:/Universidad/Segundo año/.Net/EntregaFinal.Net/sge.ui/Components/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Universidad/Segundo año/.Net/EntregaFinal/EntregaFinal.Net/sge.ui/Components/Pages/ListarExpedientes.razor]
+[D:/Universidad/Segundo año/.Net/EntregaFinal.Net/sge.ui/Components/Pages/ListarExpedientes.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xMaXN0YXJFeHBlZGllbnRlcy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Universidad/Segundo año/.Net/EntregaFinal/EntregaFinal.Net/sge.ui/Components/Pages/ListarUsuarios.razor]
+[D:/Universidad/Segundo año/.Net/EntregaFinal.Net/sge.ui/Components/Pages/ListarTramites.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xMaXN0YXJUcmFtaXRlcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Universidad/Segundo año/.Net/EntregaFinal.Net/sge.ui/Components/Pages/ListarUsuarios.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xMaXN0YXJVc3Vhcmlvcy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Universidad/Segundo año/.Net/EntregaFinal/EntregaFinal.Net/sge.ui/Components/Pages/Weather.razor]
+[D:/Universidad/Segundo año/.Net/EntregaFinal.Net/sge.ui/Components/Pages/Weather.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xXZWF0aGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Universidad/Segundo año/.Net/EntregaFinal/EntregaFinal.Net/sge.ui/Components/Routes.razor]
+[D:/Universidad/Segundo año/.Net/EntregaFinal.Net/sge.ui/Components/Routes.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSb3V0ZXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Universidad/Segundo año/.Net/EntregaFinal/EntregaFinal.Net/sge.ui/Components/_Imports.razor]
+[D:/Universidad/Segundo año/.Net/EntregaFinal.Net/sge.ui/Components/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xfSW1wb3J0cy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Universidad/Segundo año/.Net/EntregaFinal/EntregaFinal.Net/sge.ui/Components/DialogoConfirmacion.razor]
+[D:/Universidad/Segundo año/.Net/EntregaFinal.Net/sge.ui/Components/DialogoConfirmacion.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xEaWFsb2dvQ29uZmlybWFjaW9uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-uz9ff9pls7
 
-[D:/Universidad/Segundo año/.Net/EntregaFinal/EntregaFinal.Net/sge.ui/Components/Layout/MainLayout.razor]
+[D:/Universidad/Segundo año/.Net/EntregaFinal.Net/sge.ui/Components/Layout/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTWFpbkxheW91dC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-k716zha75e
 
-[D:/Universidad/Segundo año/.Net/EntregaFinal/EntregaFinal.Net/sge.ui/Components/Layout/NavMenu.razor]
+[D:/Universidad/Segundo año/.Net/EntregaFinal.Net/sge.ui/Components/Layout/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTmF2TWVudS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-067s78a2ky

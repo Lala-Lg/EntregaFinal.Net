@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "al8r8T3hH40g3eUkUW896RyMt+sJcBHrMROALOLD55g=",
+  "Hash": "DTqH+pGIrFYhaTHW6R2ZwRkUT0Y1UZeJ8Fpqyvp9Owc=",
   "Source": "SGE.UI",
   "BasePath": "_content/SGE.UI",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "SGE.UI\\wwwroot",
       "Source": "SGE.UI",
-      "ContentRoot": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal\\EntregaFinal.Net\\SGE.UI\\wwwroot\\",
+      "ContentRoot": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal.Net\\sge.ui\\wwwroot\\",
       "BasePath": "_content/SGE.UI",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal\\EntregaFinal.Net\\sge.ui\\obj\\Debug\\net8.0\\scopedcss\\bundle\\SGE.UI.styles.css",
+      "Identity": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal.Net\\sge.ui\\obj\\Debug\\net8.0\\scopedcss\\bundle\\SGE.UI.styles.css",
       "SourceId": "SGE.UI",
       "SourceType": "Computed",
-      "ContentRoot": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal\\EntregaFinal.Net\\sge.ui\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal.Net\\sge.ui\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/SGE.UI",
       "RelativePath": "SGE.UI.styles.css",
       "AssetKind": "All",
@@ -33,13 +33,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal\\EntregaFinal.Net\\sge.ui\\obj\\Debug\\net8.0\\scopedcss\\bundle\\SGE.UI.styles.css"
+      "OriginalItemSpec": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal.Net\\sge.ui\\obj\\Debug\\net8.0\\scopedcss\\bundle\\SGE.UI.styles.css"
     },
     {
-      "Identity": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal\\EntregaFinal.Net\\sge.ui\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\SGE.UI.bundle.scp.css",
+      "Identity": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal.Net\\sge.ui\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\SGE.UI.bundle.scp.css",
       "SourceId": "SGE.UI",
       "SourceType": "Computed",
-      "ContentRoot": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal\\EntregaFinal.Net\\sge.ui\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal.Net\\sge.ui\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/SGE.UI",
       "RelativePath": "SGE.UI.bundle.scp.css",
       "AssetKind": "All",
@@ -52,13 +52,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal\\EntregaFinal.Net\\sge.ui\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\SGE.UI.bundle.scp.css"
+      "OriginalItemSpec": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal.Net\\sge.ui\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\SGE.UI.bundle.scp.css"
     },
     {
-      "Identity": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal\\EntregaFinal.Net\\sge.ui\\wwwroot\\app.css",
+      "Identity": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal.Net\\sge.ui\\wwwroot\\app.css",
       "SourceId": "SGE.UI",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal\\EntregaFinal.Net\\SGE.UI\\wwwroot\\",
+      "ContentRoot": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal.Net\\sge.ui\\wwwroot\\",
       "BasePath": "_content/SGE.UI",
       "RelativePath": "app.css",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\app.css"
     },
     {
-      "Identity": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal\\EntregaFinal.Net\\sge.ui\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Identity": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal.Net\\sge.ui\\wwwroot\\bootstrap\\bootstrap.min.css",
       "SourceId": "SGE.UI",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal\\EntregaFinal.Net\\SGE.UI\\wwwroot\\",
+      "ContentRoot": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal.Net\\sge.ui\\wwwroot\\",
       "BasePath": "_content/SGE.UI",
       "RelativePath": "bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal\\EntregaFinal.Net\\sge.ui\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal.Net\\sge.ui\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "SGE.UI",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal\\EntregaFinal.Net\\SGE.UI\\wwwroot\\",
+      "ContentRoot": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal.Net\\sge.ui\\wwwroot\\",
       "BasePath": "_content/SGE.UI",
       "RelativePath": "bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal\\EntregaFinal.Net\\sge.ui\\wwwroot\\favicon.png",
+      "Identity": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal.Net\\sge.ui\\wwwroot\\favicon.png",
       "SourceId": "SGE.UI",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal\\EntregaFinal.Net\\SGE.UI\\wwwroot\\",
+      "ContentRoot": "D:\\Universidad\\Segundo año\\.Net\\EntregaFinal.Net\\sge.ui\\wwwroot\\",
       "BasePath": "_content/SGE.UI",
       "RelativePath": "favicon.png",
       "AssetKind": "All",

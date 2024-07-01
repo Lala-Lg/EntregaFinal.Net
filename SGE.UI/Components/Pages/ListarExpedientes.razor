@@ -4,11 +4,14 @@
 @using SGE.Aplicacion.Servicios
 @inject NavigationManager NavigationManager
 @inject CasoDeUsoExpedienteConsultaTodos CasoDeUsoExpedienteConsultaTodos
+@inject CasoDeUsoExpedienteConsultaPorId CasoDeUsoExpedienteConsultaPorId
+@inject CasoDeUsoExpedienteBaja CasoDeUsoExpedienteBaja
+@inject IUserService UserService
 
 
 <h1>ListarExpedientes</h1>
 
-<p>A continuación se visualiza el listado de los usuarios.</p>
+<p>A continuación se visualiza el listado de los Expedientes.</p>
 
 @if (_expedientes == null)
 {
@@ -38,8 +41,22 @@ else
                     <td>@expediente.UltimaModificacion</td>
                     <td>@expediente.IdUsuarioUltimaModificacion</td>
                     <td>@expediente.Estado</td>
-                    <td>@expediente.Tramites</td>
                 </tr>
+                <td>
+                    <button class="btn btn-primary" @onclick="()=>AgregarTramites()">
+                        <span class="oi oi-pencil">Agregar Tramites</span>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-danger" @onclick="()=>EliminarExpediente(expediente)">
+                        <span class="oi oi-trash">EliminarExpediente</span>
+                    </button>
+                </td>
+                 <td>
+                    <button class="btn btn-primary" @onclick="()=>ConsultaPorId(expediente)">
+                        <span class="oi oi-pencil">Consultar por Id</span>
+                    </button>
+                </td>
             }
         </tbody>
     </table>
@@ -50,13 +67,41 @@ else
 
 
 @code {
+    private int id_Usuario => UserService.UserId;
+    private string ErrorMessage { get; set; }
     List<Expediente> _expedientes = new List<Expediente>();
+    Expediente expediente = null;
     protected override void OnInitialized()
     {
         _expedientes = CasoDeUsoExpedienteConsultaTodos.Ejecutar();
     }
 
+    private void AgregarTramites ()
+    {
+        
+    }
 
+    private void EliminarExpediente(Expediente expediente)
+    {
+        if (expediente != null)
+        {
+            CasoDeUsoExpedienteBaja.Ejecutar(expediente.Id,id_Usuario);
+            _expedientes = CasoDeUsoExpedienteConsultaTodos.Ejecutar();
+            expediente = null;
+        }
+        else{
+            ErrorMessage = $"el expediente {expediente.Id} no existe";
+        }
+    }
+    private void ConsultaPorId(Expediente expediente)
+    {
+        if (expediente != null)
+        {
+            CasoDeUsoExpedienteConsultaPorId.Ejecutar(expediente.Id);
+            _expedientes = CasoDeUsoExpedienteConsultaTodos.Ejecutar();
+            expediente = null;
+        }
+    }
     private void VolverHome()
     {
         NavigationManager.NavigateTo("/"); // Vuelve al Home

@@ -41,6 +41,11 @@ else
                     <td>@expediente.UltimaModificacion</td>
                     <td>@expediente.IdUsuarioUltimaModificacion</td>
                     <td>@expediente.Estado</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="()=>ListaTramite(expediente)">
+
+                        </button>
+                    </td>
                 </tr>
                 <td>
                     <button class="btn btn-primary" @onclick="()=>AgregarTramites()">
@@ -48,13 +53,8 @@ else
                     </button>
                 </td>
                 <td>
-                    <button class="btn btn-danger" @onclick="()=>EliminarExpediente(expediente)">
+                    <button class="btn btn-danger" @onclick="()=> EliminarExpediente(expediente)">
                         <span class="oi oi-trash">EliminarExpediente</span>
-                    </button>
-                </td>
-                 <td>
-                    <button class="btn btn-primary" @onclick="()=>ConsultaPorId(expediente)">
-                        <span class="oi oi-pencil">Consultar por Id</span>
                     </button>
                 </td>
             }
@@ -70,7 +70,9 @@ else
     private int id_Usuario => UserService.UserId;
     private string ErrorMessage { get; set; }
     List<Expediente> _expedientes = new List<Expediente>();
-    Expediente expediente = null;
+    Expediente _expedienteEliminar = null;
+    private DialogoConfirmacion dialogo;
+
     protected override void OnInitialized()
     {
         _expedientes = CasoDeUsoExpedienteConsultaTodos.Ejecutar();
@@ -80,27 +82,22 @@ else
     {
         
     }
-
-    private void EliminarExpediente(Expediente expediente)
+     private async Task EliminarExpediente(Expediente expediente)
     {
-        if (expediente != null)
+        _expedienteEliminar = expediente;
+        if (_expedienteEliminar != null)
         {
-            CasoDeUsoExpedienteBaja.Ejecutar(expediente.Id,id_Usuario);
-            _expedientes = CasoDeUsoExpedienteConsultaTodos.Ejecutar();
-            expediente = null;
-        }
-        else{
-            ErrorMessage = $"el expediente {expediente.Id} no existe";
+            CasoDeUsoExpedienteBaja.Ejecutar(_expedienteEliminar.Id,id_Usuario);
+            _expedientes = CasoDeUsoExpedienteConsultaTodos.Ejecutar(); // Actualiza la lista
+            _expedienteEliminar = null; // Limpiar el usuario seleccionado
         }
     }
-    private void ConsultaPorId(Expediente expediente)
+
+
+    private void ListaTramite(Expediente expediente)
     {
-        if (expediente != null)
-        {
-            CasoDeUsoExpedienteConsultaPorId.Ejecutar(expediente.Id);
-            _expedientes = CasoDeUsoExpedienteConsultaTodos.Ejecutar();
-            expediente = null;
-        }
+        NavigationManager.NavigateTo("/listarTramites/{expediente.id}");
+        expediente = null;
     }
     private void VolverHome()
     {

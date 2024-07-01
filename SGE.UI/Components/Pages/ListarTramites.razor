@@ -3,7 +3,8 @@
 @using Microsoft.AspNetCore.Components.Web
 @using SGE.Aplicacion.Servicios
 @inject NavigationManager NavigationManager
-
+@inject ITramiteRepositorio ITramiteRepositorio
+@inject IUserService UserService
 <h1>Listar Trámites</h1>
 
 <p>A continuación se visualiza el listado de los Tramites.</p>
@@ -51,14 +52,16 @@ else
     <button @onclick="VolverHome" class="btn btn-primary">Home</button>
 </div>
 @code
-{
+{   
+    public int IdExpediente { get; set; }
     List<Tramite> _tramites = new List<Tramite>();
-    /*protected override void OnInitialized()
+    protected override void OnInitialized()
     {
-        _tramites = _tramites.ListarPorIdExpediente();
-    }*/
+        _tramites = ITramiteRepositorio.ListarPorIdExpediente(IdExpediente);
+    }
 
-    private void EliminarTramite(Tramite tramite){
+    private void EliminarTramite(Tramite tramite)
+    {
 
     }
     private void VolverHome()

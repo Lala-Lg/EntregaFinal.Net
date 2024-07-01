@@ -10,7 +10,7 @@ public class CasoDeUsoExpedienteBaja(IServicioAutorizacion servicioAutorizacion,
            // Verificar permisos
            if(servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.ExpedienteBaja)){
                // Eliminar expediente en el repositorio
-                var expediente = expedienteRepositorio.ObtenerPorId(idUsuario);
+                var expediente = expedienteRepositorio.ObtenerPorId(idExpediente);
                 if(expediente != null){
                     expedienteRepositorio.Eliminar(expediente);
                 }

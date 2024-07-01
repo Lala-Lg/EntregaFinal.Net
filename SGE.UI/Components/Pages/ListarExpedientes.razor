@@ -1,0 +1,64 @@
+@page "/listarExpedientes"
+@rendermode InteractiveServer
+@using Microsoft.AspNetCore.Components.Web
+@using SGE.Aplicacion.Servicios
+@inject NavigationManager NavigationManager
+@inject CasoDeUsoExpedienteConsultaTodos CasoDeUsoExpedienteConsultaTodos
+
+
+<h1>ListarExpedientes</h1>
+
+<p>A continuación se visualiza el listado de los usuarios.</p>
+
+@if (_expedientes == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Caratula</th>
+                <th>FechaCreacion</th>
+                <th>UltimaModificacion</th>
+                <th>IdUsuarioUltimaModificacion</th>
+                <th>Estado</th>
+                <th>Tramites</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var expediente in _expedientes)
+            {
+                <tr>
+                    <td>@expediente.Id</td>
+                    <td>@expediente.Caratula</td>
+                    <td>@expediente.FechaCreacion</td>
+                    <td>@expediente.UltimaModificacion</td>
+                    <td>@expediente.IdUsuarioUltimaModificacion</td>
+                    <td>@expediente.Estado</td>
+                    <td>@expediente.Tramites</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<div class="container">
+    <button @onclick="VolverHome" class="btn btn-primary">Home</button>
+</div>
+
+
+@code {
+    List<Expediente> _expedientes = new List<Expediente>();
+    protected override void OnInitialized()
+    {
+        _expedientes = CasoDeUsoExpedienteConsultaTodos.Ejecutar();
+    }
+
+
+    private void VolverHome()
+    {
+        NavigationManager.NavigateTo("/"); // Vuelve al Home
+    }
+}

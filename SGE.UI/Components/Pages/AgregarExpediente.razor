@@ -1,0 +1,45 @@
+@page "/AgregarExpediente"
+@rendermode InteractiveServer
+@using Microsoft.AspNetCore.Components.Web
+@using SGE.Aplicacion.Servicios
+@inject NavigationManager NavigationManager
+
+@inject IUserService UserService
+@inject CasoDeUsoExpedienteAlta CasoDeUsoExpedienteAlta
+@inject IExpedienteRepositorio IExpedienteRepositorio
+
+<h1>Agregar Expediente</h1>
+<form>
+    <p>Caratula: <input placeholder="Caratula" @bind="_expediente.Caratula" class="form-control" required type="text"></p>
+</form>
+<div class="container">
+    <button class="btn btn-primary" @onclick="RegistrarExpediente">Aceptar</button>
+    <button @onclick="VolverHome" class="btn btn-primary">Home</button>
+</div>
+@code{
+    private int id_Usuario => UserService.UserId;
+    private Expediente _expediente = new Expediente();
+    private string ErrorMessage { get; set; }
+     private void RegistrarExpediente()
+    {
+
+        // Ejecutar el caso de uso para agregar Expediente
+        CasoDeUsoExpedienteAlta.Ejecutar(_expediente,id_Usuario);
+        try{
+            // Limpiar variables después de registrar correctamente
+            _expediente = new Expediente();
+            ErrorMessage = "Expediente registrado con éxito";
+        }
+        catch
+        {
+             ErrorMessage = "No se agrego el expediente debido a permisos";
+        }
+    }
+
+
+    private void VolverHome()
+    {
+        NavigationManager.NavigateTo("/"); // Vuelve al Home
+    }
+
+}

@@ -52,6 +52,7 @@ builder.Services.AddTransient<IServicioAutorizacion, ServicioAutorizacion>();
 builder.Services.AddTransient<IEspecificacionCambioEstado, EspecificacionCambioEstado>();
 builder.Services.AddTransient<ServicioActualizacionEstado>();
 builder.Services.AddTransient<IHashService, HashService>();
+builder.Services.AddTransient<IUserService, UserService>();
 
 
 var app = builder.Build();

@@ -27,6 +27,7 @@ public class UsuarioRepositorioSQL: IUsuarioRepositorio
         }
     }
 
+
     public void EliminarUsuario(Usuario usuario){
         using(var db = new EntidadesContext()){
             /*
@@ -128,5 +129,19 @@ public class UsuarioRepositorioSQL: IUsuarioRepositorio
             Console.WriteLine($"Usuario con ID {idUsuario} no encontrado.");
         }
     }
+    }
+    public void AgregarPermisoUsuario(int usuarioId, Permiso permiso)
+    {
+        using (var db = new EntidadesContext()){
+        var usuario = db.Set<Usuario>().Find(usuarioId);
+        if (usuario != null)
+        {
+            // Asignar el permiso al usuario
+            usuario.ListaPermisos.Add(permiso);
+
+            // Guardar los cambios en la base de datos
+            db.SaveChanges();
+        }
+        }
     }
 }

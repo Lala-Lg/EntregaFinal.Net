@@ -3,21 +3,65 @@
 @rendermode InteractiveServer
 @using Microsoft.AspNetCore.Components.Web
 @inject NavigationManager Navegador;
+@inject CasoDeUsoObtenerUsuario CasoDeUsoObtenerUsuario
+@inject CasoDeUsoObtenerListaUsuarios CasoDeUsoObtenerListaUsuarios
+@inject IHashService HashService
+@inject IJSRuntime JSRuntime
+@inject IUserService UserService
 
-<h1>Bienvenido</h1>
+<div class="contenedor">
+    <h2>Iniciar Sesión</h2>
 
-<div class="container">
-    <p>Ingrese opción deseada:</p>
-    <button @onclick="NavigateToCrearUsuario" class="btn btn-primary">Iniciar sesión</button>
-    <button @onclick="NavigateToRegistro" class="btn btn-primary">Registrarse</button>
+    <form>
+        <div class="elemento">
+            <label for="email">Email:</label>
+            <input id="email" placeholder="Email" @bind="_correoElectronico" class="form-control" required type="email">
+        </div>
+        <div class="elemento">
+            <label for="password">Contraseña:</label>
+            <input id="password" placeholder="Contraseña" @bind="_password" type="password" class="form-control">
+        </div>
+    </form>
+
+    <div class="elemento">
+        <button class="boton" @onclick="Iniciar">Iniciar Sesión</button>
+    </div>
+
 </div>
+    <button @onclick="NavigateToRegistro" class="btn btn-primary">Registrarse</button>
 
 @code {
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
-    private void NavigateToCrearUsuario()
+     private string _correoElectronico = string.Empty;
+    private string _password = string.Empty;
+    private List<Usuario> _usuarios = new List<Usuario>();
+ 
+    private DialogoConfirmacion dialogo = new DialogoConfirmacion();
+
+    private void Iniciar()
     {
-        NavigationManager.NavigateTo("/IniciarSesion"); // Redirige a la página de registro de usuarios
+        _usuarios = CasoDeUsoObtenerListaUsuarios.Ejecutar();
+        var usuarioEncontrado = _usuarios.FirstOrDefault(u => u.CorreoElectronico == _correoElectronico);
+       
+        if (usuarioEncontrado != null)
+        {
+            UserService.UserId = usuarioEncontrado.Id;
+            if (HashService.VerifyHash(_password, usuarioEncontrado.Contraseña, usuarioEncontrado.SalContraseña))
+            {
+                Navegador.NavigateTo("/listadoUsuarios");
+            }
+            else
+            {
+                dialogo?.Mostrar("La contraseña ingresada es incorrecta. Contactar al soporte técnico.");
+
+            }
+        }
+        else
+        {
+            dialogo?.Mostrar("El email ingresado no está registrado. Por favor, registre una cuenta o contacte al soporte técnico.");
+        }
     }
+
 
     private void NavigateToRegistro()
     {

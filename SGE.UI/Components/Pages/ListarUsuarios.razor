@@ -5,6 +5,8 @@
 @inject CasoDeUsoListarUsuarios CasoDeUsoListarUsuarios
 @inject NavigationManager NavigationManager
 @inject CasoDeUsoEliminarUsuario CasoDeUsoEliminarUsuario
+@inject IUserService UserService
+@inject IJSRuntime JSRuntime
 
 <PageTitle>ListarUsuarios</PageTitle>
 
@@ -55,6 +57,7 @@ else
 <div class="container">
      <button @onclick="IrAagregarUsuario" class="btn btn-primary">Agregar Usuario</button>
     <button @onclick="VolverHome" class="btn btn-primary">Home</button>
+    <button @onclick="MostrarUserId">Mostrar UserId en Consola</button>
 </div>
 <DialogoConfirmacion @ref="dialogo" OnConfirmado="HandleConfirmarEliminacion" />
 
@@ -105,5 +108,13 @@ else
     private void VolverHome()
     {
         NavigationManager.NavigateTo("/"); // Vuelve al Home
+    }
+     async Task MostrarUserId()
+    {
+        // Obtener el UserId desde UserService
+        int userId = UserService.UserId;
+
+        // Llamar a console.log para imprimir el userId en la consola del navegador
+        await JSRuntime.InvokeVoidAsync("console.log", $"UserId: {userId}");
     }
 }

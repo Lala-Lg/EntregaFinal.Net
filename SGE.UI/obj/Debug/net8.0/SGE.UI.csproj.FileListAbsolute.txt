@@ -196,4 +196,3 @@ D:\Universidad\Segundo año\.Net\EntregaFinal\EntregaFinal.Net\SGE.UI\obj\Debug\
 D:\Universidad\Segundo año\.Net\EntregaFinal\EntregaFinal.Net\SGE.UI\obj\Debug\net8.0\SGE.UI.csproj.Up2Date
 D:\Universidad\Segundo año\.Net\EntregaFinal\EntregaFinal.Net\SGE.UI\obj\Debug\net8.0\SGE.UI.genruntimeconfig.cache
 D:\Universidad\Segundo año\.Net\EntregaFinal\EntregaFinal.Net\SGE.UI\obj\Debug\net8.0\ref\SGE.UI.dll
-D:\Universidad\Segundo año\.Net\EntregaFinal\EntregaFinal.Net\SGE.UI\obj\Debug\net8.0\scopedcss\Components\Pages\IniciarSesion.razor.rz.scp.css

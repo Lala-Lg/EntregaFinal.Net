@@ -6,7 +6,7 @@ public interface IUsuarioRepositorio
 {
     List<Usuario> GetUsuarios();
     Usuario? GetUsuario(int id);
-    
+    List<Permiso> GetPermisos(Usuario usuario);
     void ModificarUsuario(Usuario usuario);
     void EliminarUsuario(Usuario usuario);
     void AgregarUsuario(Usuario usuario);

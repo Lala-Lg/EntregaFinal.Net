@@ -19,7 +19,6 @@ using SGE.Aplicacion.Interfaces;
 
             if (usuario != null)
             {
-                // Verificar si el usuario tiene el permiso requerido
                 return usuario.ListaPermisos.Contains(permiso);
             }
 

@@ -7,6 +7,7 @@
 @inject IUserService UserService
 @inject CasoDeUsoExpedienteAlta CasoDeUsoExpedienteAlta
 @inject IExpedienteRepositorio IExpedienteRepositorio
+@inject IJSRuntime JSRuntime
 
 <h1>Agregar Expediente</h1>
 <form>
@@ -15,6 +16,7 @@
 <div class="container">
     <button class="btn btn-primary" @onclick="RegistrarExpediente">Aceptar</button>
     <button @onclick="VolverHome" class="btn btn-primary">Home</button>
+    <button @onclick="MostrarUserId">Mostrar UserId en Consola</button>
 </div>
 @code{
     private int id_Usuario => UserService.UserId;
@@ -42,4 +44,12 @@
         NavigationManager.NavigateTo("/"); // Vuelve al Home
     }
 
+    async Task MostrarUserId()
+    {
+        // Obtener el UserId desde UserService
+        int userId = UserService.UserId;
+
+        // Llamar a console.log para imprimir el userId en la consola del navegador
+        await JSRuntime.InvokeVoidAsync("console.log", $"UserId: {userId}");
+    }
 }

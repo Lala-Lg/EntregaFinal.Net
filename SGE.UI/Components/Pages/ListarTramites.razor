@@ -5,6 +5,8 @@
 @inject NavigationManager NavigationManager
 @inject ITramiteRepositorio ITramiteRepositorio
 @inject IUserService UserService
+@inject CasoDeUsoTramiteBaja CasoDeUsoTramiteBaja
+
 
 <h1>Listar Trámites</h1>
 
@@ -60,10 +62,12 @@ else
 
 @code
 {
+    private int id_Usuario => UserService.UserId;
     [Parameter]
     public int idExpediente { get; set; }
     private List<Tramite> _tramites;
     private string ErrorMessage { get; set; }
+    Tramite _tramiteEliminar = null;
 
    protected override async Task OnParametersSetAsync()
     {
@@ -79,7 +83,14 @@ else
 
     private async Task EliminarTramite(Tramite tramite)
     {
-
+        _tramiteEliminar = tramite;
+        if (_tramiteEliminar != null)
+        {
+            CasoDeUsoTramiteBaja.Ejecutar(_tramiteEliminar,id_Usuario);
+            ITramiteRepositorio.ListarPorIdExpediente(idExpediente);
+            _tramiteEliminar = null;
+        }
+        _tramiteEliminar = null;
     }
 
     private void VolverHome()

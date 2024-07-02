@@ -5,6 +5,7 @@
 @inject NavigationManager NavigationManager
 @inject ITramiteRepositorio ITramiteRepositorio
 @inject IUserService UserService
+
 <h1>Listar Trámites</h1>
 
 <p>A continuación se visualiza el listado de los Tramites.</p>
@@ -12,6 +13,10 @@
 @if (_tramites == null)
 {
     <p><em>Cargando...</em></p>
+}
+else if (!_tramites.Any())
+{
+    <p>No se encontraron trámites para este expediente.</p>
 }
 else
 {
@@ -25,6 +30,7 @@ else
                 <th>FechaCreacion</th>
                 <th>UltimaModificacion</th>
                 <th>IdUsuarioUltimaModificacion</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -38,12 +44,12 @@ else
                     <td>@tramite.FechaCreacion</td>
                     <td>@tramite.UltimaModificacion</td>
                     <td>@tramite.IdUsuarioUltimaModificacion</td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="() => EliminarTramite(tramite)">
+                            <span class="oi oi-trash">Eliminar Tramite</span>
+                        </button>
+                    </td>
                 </tr>
-                <td>
-                    <button class="btn btn-danger" @onclick="()=>EliminarTramite(tramite)">
-                        <span class="oi oi-trash">Eliminar Tramite</span>
-                    </button>
-                </td>
             }
         </tbody>
     </table>
@@ -51,19 +57,31 @@ else
 <div class="container">
     <button @onclick="VolverHome" class="btn btn-primary">Home</button>
 </div>
+
 @code
-{   
-    public int IdExpediente { get; set; }
-    List<Tramite> _tramites = new List<Tramite>();
-    protected override void OnInitialized()
+{
+    [Parameter]
+    public int idExpediente { get; set; }
+    private List<Tramite> _tramites;
+    private string ErrorMessage { get; set; }
+
+   protected override async Task OnParametersSetAsync()
     {
-        _tramites = ITramiteRepositorio.ListarPorIdExpediente(IdExpediente);
+        try
+        {
+            _tramites = await Task.Run(() => ITramiteRepositorio.ListarPorIdExpediente(idExpediente));
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = ex.Message;
+        }
     }
 
-    private void EliminarTramite(Tramite tramite)
+    private async Task EliminarTramite(Tramite tramite)
     {
 
     }
+
     private void VolverHome()
     {
         NavigationManager.NavigateTo("/"); // Vuelve al Home

@@ -43,15 +43,12 @@ else
                     <td>@expediente.Estado</td>
                     <td>
                         <button class="btn btn-primary" @onclick="()=>ListaTramite(expediente)">
-
                         </button>
-                    </td>
-                </tr>
-                <td>
-                    <button class="btn btn-primary" @onclick="()=>AgregarTramites()">
+                         <button class="btn btn-primary" @onclick="()=>AgregarTramites(expediente)">
                         <span class="oi oi-pencil">Agregar Tramites</span>
                     </button>
-                </td>
+                    </td>
+                </tr>
                 <td>
                     <button class="btn btn-danger" @onclick="()=> EliminarExpediente(expediente)">
                         <span class="oi oi-trash">EliminarExpediente</span>
@@ -78,9 +75,9 @@ else
         _expedientes = CasoDeUsoExpedienteConsultaTodos.Ejecutar();
     }
 
-    private void AgregarTramites ()
+    private void AgregarTramites (Expediente expediente)
     {
-        
+        NavigationManager.NavigateTo($"/AgregarTramite/{expediente.Id}");
     }
      private async Task EliminarExpediente(Expediente expediente)
     {
@@ -94,11 +91,11 @@ else
     }
 
 
-    private void ListaTramite(Expediente expediente)
+   private void ListaTramite(Expediente expediente)
     {
-        NavigationManager.NavigateTo("/listarTramites/{expediente.id}");
-        expediente = null;
+        NavigationManager.NavigateTo($"/listarTramites/{expediente.Id}");
     }
+
     private void VolverHome()
     {
         NavigationManager.NavigateTo("/"); // Vuelve al Home

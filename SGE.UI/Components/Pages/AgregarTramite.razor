@@ -1,0 +1,60 @@
+@page "/AgregarTramite/{idExpediente:int}"
+@rendermode InteractiveServer
+@using Microsoft.AspNetCore.Components.Web
+@using SGE.Aplicacion.Enumerativos
+@using SGE.Aplicacion.Servicios
+@inject NavigationManager NavigationManager
+@inject CasoDeUsoTramiteAlta CasoDeUsoTramiteAlta
+@inject ITramiteRepositorio ITramiteRepositorio
+@inject IUserService UserService
+
+<h1>Agregar Trámite</h1>
+
+<form>
+    <div class="form-group">
+        <label for="etiqueta">Seleccionar Etiqueta para el Trámite</label><br/>
+        <select id="etiquetas" @bind="_tramite.Etiqueta">
+            @foreach (var etiqueta in Enum.GetValues(typeof(EtiquetaTramite)))
+            {
+                <option value="@etiqueta">@etiqueta</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="contenido">Contenido</label>
+        <textarea id="contenido" class="form-control" @bind="_tramite.Contenido"></textarea>
+    </div>
+    <button type="button" class="btn btn-primary" @onclick="agregarTramite">Agregar</button>
+    <button type="button" class="btn btn-secondary" @onclick="Volver">Cancelar</button>
+</form>
+@code
+{
+    [Parameter]
+    public int IdExpediente { get; set;}
+    private int id_Usuario => UserService.UserId;
+    
+    private Tramite _tramite = new Tramite();
+    private string ErrorMessage { get; set; }
+
+    private void agregarTramite()
+    {
+        _tramite.ExpedienteId = IdExpediente;
+        // Ejecutar el caso de uso para agregar tramite
+        CasoDeUsoTramiteAlta.Ejecutar(_tramite,id_Usuario);
+        try{
+            // Limpiar variables después de registrar correctamente
+            _tramite = new Tramite();
+            ErrorMessage = "Tramite registrado con éxito";
+        }
+        catch
+        {
+            ErrorMessage = "No se agrego el Tramite debido a permisos";
+        }
+    }
+  
+
+    private void Volver()
+    {
+        NavigationManager.NavigateTo("/listarTramites");
+    }
+}

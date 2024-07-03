@@ -82,16 +82,17 @@ else
     }
 
     private async Task EliminarTramite(Tramite tramite)
+{
+    _tramiteEliminar = tramite;
+    if (_tramiteEliminar != null)
     {
-        _tramiteEliminar = tramite;
-        if (_tramiteEliminar != null)
-        {
-            CasoDeUsoTramiteBaja.Ejecutar(_tramiteEliminar,id_Usuario);
-            ITramiteRepositorio.ListarPorIdExpediente(idExpediente);
-            _tramiteEliminar = null;
-        }
+        CasoDeUsoTramiteBaja.Ejecutar(_tramiteEliminar, id_Usuario); // Asegúrate de que Ejecutar es un método asincrónico
+        ITramiteRepositorio.ListarPorIdExpediente(idExpediente); // Asegúrate de que ListarPorIdExpediente es un método asincrónico
+
         _tramiteEliminar = null;
     }
+}
+
 
     private void VolverHome()
     {

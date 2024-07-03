@@ -51,6 +51,9 @@ else
                         <button class="btn btn-danger" @onclick="() => EliminarTramite(tramite)">
                             <span class="oi oi-trash">Eliminar Tramite</span>
                         </button>
+                        <button class="btn btn-primary" @onclick="()=>EditarTramite(tramite)">
+                        <span class="oi oi-pencil">Editar</span>
+                        </button>
                     </td>
                 </tr>
             }
@@ -92,6 +95,11 @@ else
             _tramites = ITramiteRepositorio.ListarPorIdExpediente(idExpediente); //ES IMPORTANTISIMO EL _TRAMITES XQ AL PONER ESA VARIABLES QUE ES SE HACE EL REFRESH VISUAL
             _tramiteEliminar = null;
         }
+    }
+
+    private void EditarTramite (Tramite tramite)
+    {
+        NavigationManager.NavigateTo($"/editarTramite/{tramite.Id}");
     }
 
     private void VolverAtras()

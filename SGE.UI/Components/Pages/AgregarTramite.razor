@@ -28,7 +28,6 @@
         <textarea id="contenido" class="form-control" @bind="_tramite.Contenido"></textarea>
     </div>
     <button type="button" class="btn btn-primary" @onclick="agregarTramite">Agregar</button>
-    <button type="button" class="btn btn-secondary" @onclick="Volver">Cancelar</button>
 </form>
 <div class= "conateiner">
     <button type="button" class="btn btn-primary" @onclick="Atras">Volver</button>
@@ -53,6 +52,7 @@
             // Limpiar variables después de registrar correctamente
             _tramite = new Tramite();
             ErrorMessage = "Trámite registrado con éxito";
+            NavigationManager.NavigateTo("/listarExpedientes");
         }
         catch (ValidacionException ex)
         {
@@ -76,10 +76,5 @@
      private void Atras()
     {
         NavigationManager.NavigateTo("/listarExpedientes");
-    }
-
-    private void Volver()
-    {
-        NavigationManager.NavigateTo("/listarTramites");
     }
 }

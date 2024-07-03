@@ -101,13 +101,11 @@ public class UsuarioRepositorioSQL: IUsuarioRepositorio
         }
     }
 
-    public void ModificarPermisos(int idUsuario, Permiso permisos){
+    public void ModificarPermisos(int idUsuario, List<Permiso> permisos){
         using (var db = new EntidadesContext())
     {
         // Cargar el usuario junto con sus permisos actuales
-        var usuario = db.Usuarios
-                        .Include(u => u.ListaPermisos)
-                        .FirstOrDefault(us => us.Id == idUsuario);
+        var usuario = db.Usuarios.FirstOrDefault(u => u.Id == idUsuario);
 
         if (usuario != null)
         {
@@ -115,7 +113,7 @@ public class UsuarioRepositorioSQL: IUsuarioRepositorio
             usuario.ListaPermisos.Clear();
 
             // Agregar los nuevos permisos
-            foreach (var permiso in usuario.ListaPermisos)
+            foreach (var permiso in permisos)
             {
                 usuario.ListaPermisos.Add(permiso);
             }

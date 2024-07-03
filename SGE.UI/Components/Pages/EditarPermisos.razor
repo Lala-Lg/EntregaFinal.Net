@@ -1,0 +1,64 @@
+@page "/editarPermisos/{usuarioId:int}"
+@rendermode InteractiveServer
+@using Microsoft.AspNetCore.Components.Web
+@using SGE.Aplicacion.Servicios
+@inject NavigationManager NavigationManager
+
+@using SGE.Aplicacion.Enumerativos
+@inject CasosDeUsoModificarPermisos CasoDeUsoModificarPermisos
+@inject CasoDeUsoObtenerListaUsuarios CasoDeUsoListarUsuarios
+@inject IUserService UserService
+
+
+<h3>Editar Permisos de Usuario</h3>
+
+@if (usuario == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <h4>Seleccionar Permisos para @usuario.Nombre</h4>
+    <div>
+        @foreach (Permiso permiso in Enum.GetValues(typeof(Permiso)))
+        {
+            <label>
+                <input type="checkbox" @bind="@permisoSeleccionado[permiso]" />
+                @permiso.ToString()
+            </label>
+        }
+    </div>
+    <button class="btn btn-primary" @onclick="GuardarPermisos">Guardar</button>
+}
+
+@code {
+    private int id_Usuario => UserService.UserId;
+
+    [Parameter] public int usuarioId { get; set; }
+    private Usuario usuario;
+    private Dictionary<Permiso, bool> permisoSeleccionado = new Dictionary<Permiso, bool>();
+
+    protected override void OnInitialized()
+    {
+        CargarUsuarioYPermisos();
+    }
+
+    private void CargarUsuarioYPermisos()
+    {
+        usuario = CasoDeUsoListarUsuarios.Ejecutar().FirstOrDefault(u => u.Id == usuarioId);
+        if (usuario != null)
+        {
+            foreach (Permiso permiso in Enum.GetValues(typeof(Permiso)))
+            {
+                permisoSeleccionado[permiso] = usuario.ListaPermisos.Contains(permiso);
+            }
+        }
+    }
+
+    private void GuardarPermisos()
+    {
+        var permisosSeleccionados = permisoSeleccionado.Where(p => p.Value).Select(p => p.Key).ToList();
+        CasoDeUsoModificarPermisos.Ejecutar(usuarioId, permisosSeleccionados,id_Usuario);
+        NavigationManager.NavigateTo("/listadoUsuarios");
+    }
+}

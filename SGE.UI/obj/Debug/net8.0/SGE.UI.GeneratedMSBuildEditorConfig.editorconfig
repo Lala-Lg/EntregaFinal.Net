@@ -38,6 +38,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb3VudGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Universidad/Segundo año/.Net/EntregaFinal.Net/sge.ui/Components/Pages/EditarPermisos.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFZGl0YXJQZXJtaXNvcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Universidad/Segundo año/.Net/EntregaFinal.Net/sge.ui/Components/Pages/Error.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 

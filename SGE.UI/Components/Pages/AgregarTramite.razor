@@ -34,7 +34,7 @@
     private int id_Usuario => UserService.UserId;
     
     private Tramite _tramite = new Tramite();
-    private string ErrorMessage { get; set; }
+    private string? ErrorMessage { get; set; } = "";
 
     private void agregarTramite()
     {

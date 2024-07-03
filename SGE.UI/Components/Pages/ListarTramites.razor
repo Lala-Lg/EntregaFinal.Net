@@ -65,15 +65,15 @@ else
     private int id_Usuario => UserService.UserId;
     [Parameter]
     public int idExpediente { get; set; }
-    private List<Tramite> _tramites;
-    private string ErrorMessage { get; set; }
-    Tramite _tramiteEliminar = null;
+    private List<Tramite>? _tramites;
+    private string ErrorMessage { get; set; } = "";
+    Tramite? _tramiteEliminar = null;
 
-   protected override async Task OnParametersSetAsync()
+    protected override void OnInitialized()
     {
         try
         {
-            _tramites = await Task.Run(() => ITramiteRepositorio.ListarPorIdExpediente(idExpediente));
+            _tramites = ITramiteRepositorio.ListarPorIdExpediente(idExpediente);
         }
         catch (Exception ex)
         {
@@ -81,18 +81,16 @@ else
         }
     }
 
-    private async Task EliminarTramite(Tramite tramite)
-{
-    _tramiteEliminar = tramite;
-    if (_tramiteEliminar != null)
+    private void EliminarTramite(Tramite tramite)
     {
-        CasoDeUsoTramiteBaja.Ejecutar(_tramiteEliminar, id_Usuario); // Asegúrate de que Ejecutar es un método asincrónico
-        ITramiteRepositorio.ListarPorIdExpediente(idExpediente); // Asegúrate de que ListarPorIdExpediente es un método asincrónico
-
-        _tramiteEliminar = null;
+        _tramiteEliminar = tramite;
+        if (_tramiteEliminar != null)
+        {
+            CasoDeUsoTramiteBaja.Ejecutar(_tramiteEliminar, id_Usuario); 
+            _tramites = ITramiteRepositorio.ListarPorIdExpediente(idExpediente); //ES IMPORTANTISIMO EL _TRAMITES XQ AL PONER ESA VARIABLES QUE ES SE HACE EL REFRESH VISUAL
+            _tramiteEliminar = null;
+        }
     }
-}
-
 
     private void VolverHome()
     {

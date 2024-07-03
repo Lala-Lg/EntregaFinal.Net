@@ -66,10 +66,10 @@ else
 
 @code {
     private int id_Usuario => UserService.UserId;
-    private string ErrorMessage { get; set; }
+    private string ErrorMessage { get; set; } = "";
     List<Expediente> _expedientes = new List<Expediente>();
-    Expediente _expedienteEliminar = null;
-    private DialogoConfirmacion dialogo;
+    Expediente? _expedienteEliminar = null;
+
 
     protected override void OnInitialized()
     {
@@ -80,7 +80,7 @@ else
     {
         NavigationManager.NavigateTo($"/AgregarTramite/{expediente.Id}");
     }
-     private async Task EliminarExpediente(Expediente expediente)
+     private void EliminarExpediente(Expediente expediente)
     {
         _expedienteEliminar = expediente;
         if (_expedienteEliminar != null)

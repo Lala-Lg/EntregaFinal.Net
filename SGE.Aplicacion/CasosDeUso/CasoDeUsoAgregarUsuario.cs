@@ -27,8 +27,10 @@ public class CasoDeUsoAgregarUsuario : CasoDeUsoUsuario
         }
         else
         {
-            // Otorgar permiso básico
+            // Otorgar permiso básico de lectura
             _repositorio.AgregarPermisoUsuario(usuario.Id, Permiso.ListarUsuarios);
+            _repositorio.AgregarPermisoUsuario(usuario.Id, Permiso.ListarExpedientes);
+            _repositorio.AgregarPermisoUsuario(usuario.Id, Permiso.ListarTramites);
         }
     }
 }

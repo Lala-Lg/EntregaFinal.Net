@@ -54,10 +54,15 @@ else
                     <button class="btn btn-danger" @onclick="()=> EliminarExpediente(expediente)">
                         <span class="oi oi-trash">EliminarExpediente</span>
                     </button>
+                     <button class="btn btn-primary" @onclick="()=>EditarExpediente(expediente)">
+                            <span class="oi oi-pencil">Editar</span>
+                        </button>
                 </td>
             }
         </tbody>
     </table>
+     <button @onclick="IrAagregarUsuario" class="btn btn-primary">Agregar Expediente</button>
+      
 }
 
 
@@ -77,7 +82,7 @@ else
     {
         NavigationManager.NavigateTo($"/AgregarTramite/{expediente.Id}");
     }
-     private void EliminarExpediente(Expediente expediente)
+    private void EliminarExpediente(Expediente expediente)
     {
         _expedienteEliminar = expediente;
         if (_expedienteEliminar != null)
@@ -88,12 +93,22 @@ else
         }
     }
 
+    private void EditarExpediente(Expediente expediente)
+    {
+         NavigationManager.NavigateTo($"/editarExpediente/{expediente.Id}");
+    }
+
 
    private void ListaTramite(Expediente expediente)
     {
         NavigationManager.NavigateTo($"/listarTramites/{expediente.Id}");
     }
 
+
+    private void IrAagregarUsuario()
+    {
+        NavigationManager.NavigateTo("/AgregarExpediente");
+    }
     private void VolverHome()
     {
         NavigationManager.NavigateTo("/listadoUsuarios"); // Vuelve al Home q seria el listar

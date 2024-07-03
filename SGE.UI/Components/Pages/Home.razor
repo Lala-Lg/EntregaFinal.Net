@@ -9,22 +9,22 @@
 @inject IJSRuntime JSRuntime
 @inject IUserService UserService
 
-<div class="contenedor">
+<div class="contenedorInicio">
     <h2>Iniciar Sesión</h2>
 
     <form>
-        <div class="elemento">
+        <div class="elementoInicio">
             <label for="email">Email:</label>
             <input id="email" placeholder="Email" @bind="_correoElectronico" class="form-control" required type="email">
         </div>
-        <div class="elemento">
+        <div class="elementoInicio">
             <label for="password">Contraseña:</label>
             <input id="password" placeholder="Contraseña" @bind="_password" type="password" class="form-control">
         </div>
     </form>
 
-    <button class="btn btn-primary" @onclick="Iniciar">Iniciar Sesión</button>
-    <button @onclick="NavigateToRegistro" class="btn btn-primary">Registrarse</button>
+    <button class="boton" @onclick="Iniciar">Iniciar Sesión</button>
+    <button @onclick="NavigateToRegistro" class="boton">Registrarse</button>
 
 </div>
 
@@ -45,8 +45,15 @@
         {
             UserService.UserId = usuarioEncontrado.Id;
             if (HashService.VerifyHash(_password, usuarioEncontrado.Contraseña, usuarioEncontrado.SalContraseña))
-            {
-                Navegador.NavigateTo("/listadoUsuarios");
+            {  //si sos el admin se te permite ver la listade Usuarios
+                if(usuarioEncontrado.Id ==  1)
+                {
+                    Navegador.NavigateTo("/listadoUsuarios");
+                }
+                else
+                {
+                    Navegador.NavigateTo("/listarExpedientes");
+                }
             }
             else
             {
@@ -59,6 +66,7 @@
             dialogo?.Mostrar("El email ingresado no está registrado. Por favor, registre una cuenta o contacte al soporte técnico.");
         }
     }
+
 
 
     private void NavigateToRegistro()

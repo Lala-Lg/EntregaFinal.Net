@@ -33,7 +33,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var usuario in _usuarios)
+            @foreach (var usuario in _usuarios.Skip(1))
             {
                 <tr>
                     <td>@usuario.Id</td>
@@ -54,11 +54,10 @@ else
                         {
                             <span>Sin permisos asignados</span>
                         }
-                        @if(usuario.Id != 1){
-                            <button class="btn btn-primary" @onclick="()=>EditarPermisos(usuario)">
+                        <button class="btn btn-primary" @onclick="()=>EditarPermisos(usuario)">
                             <span class="oi oi-pencil">Editar</span>
-                            </button>
-                        }
+                        </button>
+                        
                     </td>
                 </tr>
                 <td>

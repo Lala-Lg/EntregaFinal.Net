@@ -7,6 +7,7 @@
 @inject CasoDeUsoEliminarUsuario CasoDeUsoEliminarUsuario
 @inject IUserService UserService
 @inject IJSRuntime JSRuntime
+@inject IUsuarioRepositorio IUsuarioRepositorio
 
 <PageTitle>ListarUsuarios</PageTitle>
 
@@ -39,6 +40,19 @@ else
                     <td>@usuario.Apellido</td>
                     <td>@usuario.CorreoElectronico</td>
                     <td>
+                        @if (usuario.ListaPermisos != null && usuario.ListaPermisos.Any())
+                        {
+                            <ul>
+                                @foreach (var permiso in usuario.ListaPermisos)
+                                {
+                                    <li>@permiso.ToString()</li> <!-- Asegura que se muestre el valor del permiso -->
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <span>Sin permisos asignados</span>
+                        }
                         <button class="btn btn-primary" @onclick="()=>EditarPermisos(usuario)">
                         <span class="oi oi-pencil">Editar</span>
                     </button>
@@ -70,9 +84,14 @@ else
     private int id_Usuario => UserService.UserId;
     List<Usuario> _usuarios = new List<Usuario>();
 
-    protected override void OnInitialized()
+   protected override void OnInitialized()
     {
-        _usuarios = CasoDeUsoListarUsuarios.Ejecutar();
+        var usuarios = CasoDeUsoListarUsuarios.Ejecutar();
+        foreach (var usuario in usuarios)
+        {
+            usuario.ListaPermisos = IUsuarioRepositorio.GetPermisos(usuario);
+        }
+        _usuarios = usuarios;
     }
 
     private DialogoConfirmacion dialogo = null!; // Declaración de la referencia dialogo

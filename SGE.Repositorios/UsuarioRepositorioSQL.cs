@@ -72,18 +72,18 @@ public class UsuarioRepositorioSQL: IUsuarioRepositorio
         using (var db = new EntidadesContext())
     {
         // Recupera el usuario desde el contexto para asegurar que se obtienen los permisos desde la base de datos
-        var usuarioDb = db.Usuarios
-                          .Include(u => u.ListaPermisos) // Incluye la carga de los permisos
-                          .FirstOrDefault(u => u.Id == usuario.Id);
+       var usuarioDb = db.Usuarios.FirstOrDefault(u => u.Id == usuario.Id);
+    
 
         // Si el usuario no se encuentra en la base de datos, devuelve una lista vacía
+      
         if (usuarioDb == null)
         {
-            return new List<Permiso>();
+            return new List<Permiso>(); // Retorna una lista vacía si el usuario no existe
         }
 
-        return usuarioDb.ListaPermisos.ToList();
-        }
+        return usuarioDb.ListaPermisos; // Retorna la lista de permisos del usuario
+    }
     }
 
     /*public void ModificarUsuario(Usuario usuario){

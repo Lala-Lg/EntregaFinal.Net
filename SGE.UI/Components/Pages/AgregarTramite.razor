@@ -6,6 +6,9 @@
 @inject NavigationManager NavigationManager
 @inject CasoDeUsoTramiteAlta CasoDeUsoTramiteAlta
 @inject ITramiteRepositorio ITramiteRepositorio
+
+@using SGE.Aplicacion.Excepciones
+
 @inject IUserService UserService
 
 <h1>Agregar Trámite</h1>
@@ -27,6 +30,9 @@
     <button type="button" class="btn btn-primary" @onclick="agregarTramite">Agregar</button>
     <button type="button" class="btn btn-secondary" @onclick="Volver">Cancelar</button>
 </form>
+<div class= "conateiner">
+    <button type="button" class="btn btn-primary" @onclick="Atras">Volver</button>
+</div>
 @code
 {
     [Parameter]
@@ -40,18 +46,37 @@
     {
         _tramite.ExpedienteId = IdExpediente;
         // Ejecutar el caso de uso para agregar tramite
-        CasoDeUsoTramiteAlta.Ejecutar(_tramite,id_Usuario);
-        try{
+        try
+        {
+            CasoDeUsoTramiteAlta.Ejecutar(_tramite, id_Usuario);
+            
             // Limpiar variables después de registrar correctamente
             _tramite = new Tramite();
-            ErrorMessage = "Tramite registrado con éxito";
+            ErrorMessage = "Trámite registrado con éxito";
         }
-        catch
+        catch (ValidacionException ex)
         {
-            ErrorMessage = "No se agrego el Tramite debido a permisos";
+            // Manejo de la excepción de validación (mostrar mensaje al usuario)
+            ErrorMessage = "Hubo una excepcion de validaicon"; // Mostrar el mensaje de error de ValidacionException
+            Console.WriteLine($"Error de validación: {ex.Message}");
+        }
+        catch (AutorizacionException ex)
+        {
+            // Manejo de la excepción de autorización (por ejemplo, mostrar un mensaje al usuario)
+            ErrorMessage = "No tienes los permisos necesarios para agregar un trámite.";
+            Console.WriteLine($"Error de autorización: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            // Otro manejo de excepciones si es necesario
+            ErrorMessage = "Ocurrió un error al agregar el trámite.";
+            Console.WriteLine($"Error general: {ex.Message}");
         }
     }
-  
+     private void Atras()
+    {
+        NavigationManager.NavigateTo("/listarExpedientes");
+    }
 
     private void Volver()
     {

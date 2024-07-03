@@ -15,7 +15,7 @@
 </form>
 <div class="container">
     <button class="btn btn-primary" @onclick="RegistrarExpediente">Aceptar</button>
-    <button @onclick="VolverHome" class="btn btn-primary">Home</button>
+    <button @onclick="VolverHome" class="btn btn-primary">Volver</button>
     <button @onclick="MostrarUserId">Mostrar UserId en Consola</button>
 </div>
 @code{
@@ -41,7 +41,7 @@
 
     private void VolverHome()
     {
-        NavigationManager.NavigateTo("/"); // Vuelve al Home
+        NavigationManager.NavigateTo("/listadoUsuarios"); // Vuelve al Home
     }
 
     async Task MostrarUserId()

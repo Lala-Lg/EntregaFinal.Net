@@ -8,6 +8,7 @@
 @inject CasoDeUsoTramiteBaja CasoDeUsoTramiteBaja
 
 
+
 <h1>Listar Trámites</h1>
 
 <p>A continuación se visualiza el listado de los Tramites.</p>
@@ -57,6 +58,7 @@ else
     </table>
 }
 <div class="container">
+    <button @onclick="VolverAtras" class="btn btn-primary">Volver</button>
     <button @onclick="VolverHome" class="btn btn-primary">Home</button>
 </div>
 
@@ -92,8 +94,12 @@ else
         }
     }
 
+    private void VolverAtras()
+    {
+        NavigationManager.NavigateTo("/listarExpedientes"); // Vuelve al Home
+    }
     private void VolverHome()
     {
-        NavigationManager.NavigateTo("/"); // Vuelve al Home
+        NavigationManager.NavigateTo("/listadoUsuarios");
     }
 }

@@ -13,7 +13,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SGE.Repositorios")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e623323da9ad30c7010238f30c771c1bbfa51966")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a54ec66916f9ce31d80c7dc3b7f3e8fd50732d3c")]
+>>>>>>> f28f28d98915ba5ad19853cd9380f549ef5a54ca
 [assembly: System.Reflection.AssemblyProductAttribute("SGE.Repositorios")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SGE.Repositorios")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

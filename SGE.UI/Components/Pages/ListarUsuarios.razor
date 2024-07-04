@@ -7,6 +7,8 @@
 @inject CasoDeUsoEliminarUsuario CasoDeUsoEliminarUsuario
 @inject IUserService UserService
 @inject IJSRuntime JSRuntime
+@inject IUsuarioRepositorio IUsuarioRepositorio
+@using SGE.Aplicacion.Enumerativos
 
 <PageTitle>ListarUsuarios</PageTitle>
 
@@ -31,14 +33,32 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var usuario in _usuarios)
+            @foreach (var usuario in _usuarios.Skip(1))
             {
                 <tr>
                     <td>@usuario.Id</td>
                     <td>@usuario.Nombre</td>
                     <td>@usuario.Apellido</td>
                     <td>@usuario.CorreoElectronico</td>
-                    <td>@usuario.ListaPermisos</td>
+                    <td>
+                        @if (usuario.ListaPermisos != null && usuario.ListaPermisos.Any())
+                        {
+                            <ul>
+                                @foreach (var permiso in usuario.ListaPermisos)
+                                {
+                                    <li>@permiso.ToString()</li> <!-- Asegura que se muestre el valor del permiso -->
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <span>Sin permisos asignados</span>
+                        }
+                        <button class="btn btn-primary" @onclick="()=>EditarPermisos(usuario)">
+                            <span class="oi oi-pencil">Editar</span>
+                        </button>
+                        
+                    </td>
                 </tr>
                 <td>
                     <button class="btn btn-primary" @onclick="()=>ModificarUsuario(usuario)">
@@ -54,23 +74,30 @@ else
         </tbody>
     </table>
 }
+
 <div class="container">
     <button @onclick="IrAagregarUsuario" class="btn btn-primary">Agregar Expediente</button>
     <button @onclick="listadoExpedientes" class="btn btn-primary">Ir a Listado de Expedientes</button>
     <button @onclick="VolverHome" class="btn btn-primary">Home</button>
     <button @onclick="MostrarUserId">Mostrar UserId en Consola</button>
 </div>
-<DialogoConfirmacion @ref="dialogo" OnConfirmado="HandleConfirmarEliminacion" />
+<DialogoConfirmacion @ref="dialogo" OnConfirmado="HandleConfirmarEliminacion"/>
 
 @code {
+    private int id_Usuario => UserService.UserId;
     List<Usuario> _usuarios = new List<Usuario>();
-
-    protected override void OnInitialized()
+   protected override void OnInitialized()
     {
-        _usuarios = CasoDeUsoListarUsuarios.Ejecutar();
+        var usuarios = CasoDeUsoListarUsuarios.Ejecutar();
+        foreach (var usuario in usuarios)
+        {
+            usuario.ListaPermisos = IUsuarioRepositorio.GetPermisos(usuario);
+        }
+        _usuarios = usuarios;
     }
 
-    private DialogoConfirmacion dialogo; // Declaración de la referencia dialogo
+
+    private DialogoConfirmacion dialogo = null!; // Declaración de la referencia dialogo
 
     private Usuario? _usuarioEliminar = null;
 
@@ -80,21 +107,25 @@ else
         dialogo.Mostrar($"¿Desea eliminar el usuario {usuario.Id}?");
     }
  
-    private async Task HandleConfirmarEliminacion(bool confirmado)
+    private void  HandleConfirmarEliminacion(bool confirmado)
     {
         if (confirmado && _usuarioEliminar != null)
         {
-            await EliminarUsuarioConfirmado(confirmado);
+             EliminarUsuarioConfirmado(confirmado);
         }
     }
-    private async Task EliminarUsuarioConfirmado(bool confirmado)
+    private  void EliminarUsuarioConfirmado(bool confirmado)
     {
         if (confirmado && _usuarioEliminar != null)
         {
-            CasoDeUsoEliminarUsuario.Ejecutar(_usuarioEliminar);
+            CasoDeUsoEliminarUsuario.Ejecutar(_usuarioEliminar,id_Usuario);
             _usuarios = CasoDeUsoListarUsuarios.Ejecutar(); // Actualiza la lista
             _usuarioEliminar = null; // Limpiar el usuario seleccionado
         }
+    }
+    private void EditarPermisos(Usuario usuario)
+    {
+        NavigationManager.NavigateTo($"/editarPermisos/{usuario.Id}");
     }
 
     private void ModificarUsuario(Usuario usuario)

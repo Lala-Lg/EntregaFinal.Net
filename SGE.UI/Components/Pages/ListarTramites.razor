@@ -2,15 +2,20 @@
 @rendermode InteractiveServer
 @using Microsoft.AspNetCore.Components.Web
 @using SGE.Aplicacion.Servicios
+@using SGE.Aplicacion.Enumerativos
 @inject NavigationManager NavigationManager
 @inject ITramiteRepositorio ITramiteRepositorio
 @inject IUserService UserService
 @inject CasoDeUsoTramiteBaja CasoDeUsoTramiteBaja
+@inject CasoDeUsoTramiteConsultaPorEtiqueta CasoDeUsoTramiteConsultaPorEtiqueta
+
 
 
 <h1>Listar Trámites</h1>
 
 <p>A continuación se visualiza el listado de los Tramites.</p>
+<input @bind="searchTerm" placeholder="Buscar por Etiqueta..." class="form-control" />
+<button @onclick="BuscarPorEtiqueta" class="btn btn-primary">Buscar</button>
 
 @if (_tramites == null)
 {
@@ -50,6 +55,9 @@ else
                         <button class="btn btn-danger" @onclick="() => EliminarTramite(tramite)">
                             <span class="oi oi-trash">Eliminar Tramite</span>
                         </button>
+                        <button class="btn btn-primary" @onclick="()=>EditarTramite(tramite)">
+                        <span class="oi oi-pencil">Editar</span>
+                        </button>
                     </td>
                 </tr>
             }
@@ -57,23 +65,24 @@ else
     </table>
 }
 <div class="container">
-    <button @onclick="VolverHome" class="btn btn-primary">Home</button>
+    <button @onclick="VolverAtras" class="btn btn-primary">Volver</button>
 </div>
 
 @code
 {
+    private string searchTerm = "";
     private int id_Usuario => UserService.UserId;
     [Parameter]
     public int idExpediente { get; set; }
-    private List<Tramite> _tramites;
-    private string ErrorMessage { get; set; }
-    Tramite _tramiteEliminar = null;
+    private List<Tramite>? _tramites;
+    private string ErrorMessage { get; set; } = "";
+    Tramite? _tramiteEliminar = null;
 
-   protected override async Task OnParametersSetAsync()
+    protected override void OnInitialized()
     {
         try
         {
-            _tramites = await Task.Run(() => ITramiteRepositorio.ListarPorIdExpediente(idExpediente));
+            _tramites = ITramiteRepositorio.ListarPorIdExpediente(idExpediente);
         }
         catch (Exception ex)
         {
@@ -81,20 +90,46 @@ else
         }
     }
 
-    private async Task EliminarTramite(Tramite tramite)
+    private void BuscarPorEtiqueta ()
+    {
+      if (Enum.TryParse<EtiquetaTramite>(searchTerm, out EtiquetaTramite etiquetaTramite))
+    {
+        try
+        {
+            _tramites = CasoDeUsoTramiteConsultaPorEtiqueta.Ejecutar(etiquetaTramite);
+            ErrorMessage = string.Empty; // Limpiar mensaje de error si hay resultados
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Ocurrió un error al buscar los trámites: {ex.Message}";
+            _tramites.Clear(); // Limpiar la lista de trámites en caso de error
+        }
+    }
+    else
+    {
+        ErrorMessage = "La etiqueta proporcionada no es válida.";
+    }
+    }
+
+    private void EliminarTramite(Tramite tramite)
     {
         _tramiteEliminar = tramite;
         if (_tramiteEliminar != null)
         {
-            CasoDeUsoTramiteBaja.Ejecutar(_tramiteEliminar,id_Usuario);
-            ITramiteRepositorio.ListarPorIdExpediente(idExpediente);
+            CasoDeUsoTramiteBaja.Ejecutar(_tramiteEliminar, id_Usuario); 
+            _tramites = ITramiteRepositorio.ListarPorIdExpediente(idExpediente); //ES IMPORTANTISIMO EL _TRAMITES XQ AL PONER ESA VARIABLES QUE ES SE HACE EL REFRESH VISUAL
             _tramiteEliminar = null;
         }
-        _tramiteEliminar = null;
     }
 
-    private void VolverHome()
+    private void EditarTramite (Tramite tramite)
     {
-        NavigationManager.NavigateTo("/"); // Vuelve al Home
+        NavigationManager.NavigateTo($"/editarTramite/{tramite.Id}");
     }
+
+    private void VolverAtras()
+    {
+        NavigationManager.NavigateTo("/listarExpedientes"); // Vuelve al Home
+    }
+  
 }

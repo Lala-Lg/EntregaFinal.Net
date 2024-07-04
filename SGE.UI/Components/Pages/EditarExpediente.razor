@@ -1,0 +1,34 @@
+@page "/editarExpediente/{expedienteId:int}"
+@rendermode InteractiveServer
+@using Microsoft.AspNetCore.Components.Web
+@using SGE.Aplicacion.Servicios
+@inject NavigationManager NavigationManager
+
+@inject CasoDeUsoExpedienteConsultaPorId CasoDeUsoExpedienteConsultaPorId
+@inject CasoDeUsoExpedienteModificacion CasoDeUsoExpedienteModificacion
+@inject IUserService UserService
+
+<h1>Editar Expediente</h1>
+<form>
+    <p>Caratula: <input placeholder="Caratula" @bind="_expediente.Caratula" class="form-control" required type="text"></p>
+</form>
+<div class="container">
+    <button class="btn btn-primary" @onclick="GuardarCambios">Guardar</button>
+</div>
+@code
+{
+    private int id_Usuario => UserService.UserId;
+    [Parameter] public int expedienteId { get; set; }
+
+    private Expediente _expediente;
+    protected override void OnInitialized()
+    {
+       _expediente = CasoDeUsoExpedienteConsultaPorId.Ejecutar(expedienteId);
+    }
+
+    private void GuardarCambios()
+    {
+        CasoDeUsoExpedienteModificacion.Ejecutar(_expediente,id_Usuario);
+        NavigationManager.NavigateTo("/listarExpedientes");
+    }
+}

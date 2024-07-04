@@ -12,6 +12,8 @@
 <h1>ListarExpedientes</h1>
 
 <p>A continuación se visualiza el listado de los Expedientes.</p>
+<input @bind="searchTerm" placeholder="Buscar por ID..." class="form-control" />
+<button @onclick="BuscarExpedienteId" class="btn btn-primary">Buscar</button>
 
 @if (_expedientes == null)
 {
@@ -19,6 +21,7 @@
 }
 else
 {
+     
     <table class="table">
         <thead>
             <tr>
@@ -54,22 +57,26 @@ else
                     <button class="btn btn-danger" @onclick="()=> EliminarExpediente(expediente)">
                         <span class="oi oi-trash">EliminarExpediente</span>
                     </button>
+                    <button class="btn btn-primary" @onclick="()=>EditarExpediente(expediente)">
+                        <span class="oi oi-pencil">Editar</span>
+                    </button>
                 </td>
             }
         </tbody>
     </table>
+     <button @onclick="IrAagregarUsuario" class="btn btn-primary">Agregar Expediente</button>
+      
 }
-<div class="container">
-    <button @onclick="VolverHome" class="btn btn-primary">Home</button>
-</div>
 
 
 @code {
+    private string searchTerm = "";
     private int id_Usuario => UserService.UserId;
-    private string ErrorMessage { get; set; }
+    private string ErrorMessage { get; set; } = "";
     List<Expediente> _expedientes = new List<Expediente>();
-    Expediente _expedienteEliminar = null;
-    private DialogoConfirmacion dialogo;
+    Expediente? _expedienteEliminar = null;
+    Expediente? _expedienteBusqueda = null;
+
 
     protected override void OnInitialized()
     {
@@ -80,7 +87,7 @@ else
     {
         NavigationManager.NavigateTo($"/AgregarTramite/{expediente.Id}");
     }
-     private async Task EliminarExpediente(Expediente expediente)
+    private void EliminarExpediente(Expediente expediente)
     {
         _expedienteEliminar = expediente;
         if (_expedienteEliminar != null)
@@ -91,14 +98,56 @@ else
         }
     }
 
+    private void BuscarExpedienteId()
+    {
+        if (int.TryParse(searchTerm, out int expedienteId))
+        {
+            try
+            {
+                _expedienteBusqueda =  CasoDeUsoExpedienteConsultaPorId.Ejecutar(expedienteId);
+
+                if (_expedienteBusqueda != null)
+                {
+                    ErrorMessage = string.Empty; // Limpiar mensaje de error si hay resultados
+                    _expedientes.Clear(); // Limpiar la lista de expedientes
+                    _expedientes.Add(_expedienteBusqueda); // Agregar el expediente encontrado
+                }
+                else
+                {
+                    ErrorMessage = "No se encontró ningún expediente con ese ID.";
+                    _expedientes.Clear(); // Limpiar la lista de expedientes si no hay resultados
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"Ocurrió un error al buscar el expediente: {ex.Message}";
+                _expedientes.Clear(); // Limpiar la lista de expedientes en caso de error
+            }
+        }
+        else
+        {
+            ErrorMessage = "No se proporcionó un ID correcto, revisar escritura.";
+        }
+}
+
+    private void EditarExpediente(Expediente expediente)
+    {
+         NavigationManager.NavigateTo($"/editarExpediente/{expediente.Id}");
+    }
+
 
    private void ListaTramite(Expediente expediente)
     {
         NavigationManager.NavigateTo($"/listarTramites/{expediente.Id}");
     }
 
+
+    private void IrAagregarUsuario()
+    {
+        NavigationManager.NavigateTo("/AgregarExpediente");
+    }
     private void VolverHome()
     {
-        NavigationManager.NavigateTo("/"); // Vuelve al Home
+        NavigationManager.NavigateTo("/listadoUsuarios"); // Vuelve al Home q seria el listar
     }
 }

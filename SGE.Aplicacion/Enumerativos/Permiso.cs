@@ -11,6 +11,8 @@ public enum Permiso
     ListarUsuarios,
     EliminarUsuario,
     ModificarUsuario,
-    ModificarPermisos
+    ModificarPermisos,
+    ListarExpedientes,
+    ListarTramites
 
 }

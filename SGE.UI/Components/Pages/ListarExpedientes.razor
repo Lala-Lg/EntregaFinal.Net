@@ -11,7 +11,9 @@
 
 <h1>ListarExpedientes</h1>
 
-<p>A continuaciÃ³n se visualiza el listado de los Expedientes.</p>
+<p>A continuación se visualiza el listado de los Expedientes.</p>
+<input @bind="searchTerm" placeholder="Buscar por ID..." class="form-control" />
+<button @onclick="BuscarExpedienteId" class="btn btn-primary">Buscar</button>
 
 @if (_expedientes == null)
 {
@@ -19,6 +21,7 @@
 }
 else
 {
+     
     <table class="table">
         <thead>
             <tr>
@@ -67,10 +70,12 @@ else
 
 
 @code {
+    private string searchTerm = "";
     private int id_Usuario => UserService.UserId;
     private string ErrorMessage { get; set; } = "";
     List<Expediente> _expedientes = new List<Expediente>();
     Expediente? _expedienteEliminar = null;
+    Expediente? _expedienteBusqueda = null;
 
 
     protected override void OnInitialized()
@@ -92,6 +97,38 @@ else
             _expedienteEliminar = null; // Limpiar el usuario seleccionado
         }
     }
+
+    private void BuscarExpedienteId()
+    {
+        if (int.TryParse(searchTerm, out int expedienteId))
+        {
+            try
+            {
+                _expedienteBusqueda =  CasoDeUsoExpedienteConsultaPorId.Ejecutar(expedienteId);
+
+                if (_expedienteBusqueda != null)
+                {
+                    ErrorMessage = string.Empty; // Limpiar mensaje de error si hay resultados
+                    _expedientes.Clear(); // Limpiar la lista de expedientes
+                    _expedientes.Add(_expedienteBusqueda); // Agregar el expediente encontrado
+                }
+                else
+                {
+                    ErrorMessage = "No se encontró ningún expediente con ese ID.";
+                    _expedientes.Clear(); // Limpiar la lista de expedientes si no hay resultados
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"Ocurrió un error al buscar el expediente: {ex.Message}";
+                _expedientes.Clear(); // Limpiar la lista de expedientes en caso de error
+            }
+        }
+        else
+        {
+            ErrorMessage = "No se proporcionó un ID correcto, revisar escritura.";
+        }
+}
 
     private void EditarExpediente(Expediente expediente)
     {

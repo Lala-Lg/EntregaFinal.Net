@@ -2,6 +2,8 @@
 using SGE.Aplicacion.Entidades;
 using SGE.Aplicacion.Interfaces;
 using SGE.Aplicacion.Enumerativos;
+using SGE.Aplicacion.Validadores;
+using SGE.Aplicacion.Excepciones;
 
 public class CasoDeUsoAgregarUsuario : CasoDeUsoUsuario
 {
@@ -14,23 +16,32 @@ public class CasoDeUsoAgregarUsuario : CasoDeUsoUsuario
 
     public void Ejecutar(Usuario usuario)
     {
-        _repositorio.AgregarUsuario(usuario);
-
-        // Verificar el ID del usuario y otorgar permisos según corresponda
-        if (usuario.Id == 1)
+        string mensajeError;
+        if(UsuarioValidador.Validar(usuario,out mensajeError))
         {
-            // Otorgar todos los permisos
-            foreach (Permiso permiso in Enum.GetValues(typeof(Permiso)))
+             Console.WriteLine($"UsuarioValidador.Validar(usuario,out mensajeError)");
+            _repositorio.AgregarUsuario(usuario);
+
+            // Verificar el ID del usuario y otorgar permisos según corresponda
+            if (usuario.Id == 1)
             {
-                _repositorio.AgregarPermisoUsuario(usuario.Id, permiso);
+                // Otorgar todos los permisos
+                foreach (Permiso permiso in Enum.GetValues(typeof(Permiso)))
+                {
+                    _repositorio.AgregarPermisoUsuario(usuario.Id, permiso);
+                }
+            }
+            else
+            {
+                // Otorgar permiso básico de lectura
+                _repositorio.AgregarPermisoUsuario(usuario.Id, Permiso.ListarUsuarios);
+                _repositorio.AgregarPermisoUsuario(usuario.Id, Permiso.ListarExpedientes);
+                _repositorio.AgregarPermisoUsuario(usuario.Id, Permiso.ListarTramites);
             }
         }
         else
         {
-            // Otorgar permiso básico de lectura
-            _repositorio.AgregarPermisoUsuario(usuario.Id, Permiso.ListarUsuarios);
-            _repositorio.AgregarPermisoUsuario(usuario.Id, Permiso.ListarExpedientes);
-            _repositorio.AgregarPermisoUsuario(usuario.Id, Permiso.ListarTramites);
+            throw new ValidacionException(mensajeError);
         }
     }
 }
